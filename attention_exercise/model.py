@@ -71,7 +71,6 @@ class WSDModel(nn.Module):
         if v_q is not None:
             # TODO Part 1: Your Code Here.
             # Look up the gather() and expand() methods in PyTorch.
-            print("part1")
             B, N, D = X.shape
 
             index = v_q.view(-1, 1, 1).expand(B, 1, D)
