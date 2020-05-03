@@ -49,6 +49,8 @@ class WSDModel(nn.Module):
 
         # TODO Part 1: Your code here.
         # Have a look at the difference between torch.matmul() and torch.bmm().
+        A = nn.functional.softmax(Q.matmul(self.W_A).bmm(X.transpose(1, 2)))
+        Q_c = A.matmul(X).matmul(self.W_O)
 
         return Q_c, A
 
@@ -69,7 +71,11 @@ class WSDModel(nn.Module):
         if v_q is not None:
             # TODO Part 1: Your Code Here.
             # Look up the gather() and expand() methods in PyTorch.
-            pass
+            print("part1")
+            B, N, D = X.shape
+
+            index = v_q.view(-1, 1, 1).expand(B, 1, D)
+            Q = torch.gather(X, 1, index)
         else:
             # TODO Part 3: Your Code Here.
             pass
